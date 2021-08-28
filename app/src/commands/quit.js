@@ -1,8 +1,7 @@
-class QuitCommand {
+export default class QuitCommand {
     name = 'Quit'
     
     execute() {
         process.exit()
     }
 }
-module.exports = QuitCommand

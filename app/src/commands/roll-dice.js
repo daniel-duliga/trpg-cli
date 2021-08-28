@@ -1,6 +1,6 @@
-var inquirer = require('inquirer')
+import inquirer from 'inquirer'
 
-class RollDiceCommand {
+export default class RollDiceCommand {
   name = 'Roll dice'
 
   execute() {
@@ -9,7 +9,7 @@ class RollDiceCommand {
         {
           type: 'input',
           name: 'formula',
-          message: 'Formula:',
+          message: 'Dice formula:',
         },
       ])
       .then((answers) => {
@@ -62,5 +62,3 @@ class RollDiceCommand {
     return result
   }
 }
-
-module.exports = RollDiceCommand

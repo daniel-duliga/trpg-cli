@@ -1,6 +1,6 @@
-var inquirer = require('inquirer')
+import inquirer from 'inquirer'
 
-class LogCommand {
+export default class LogCommand {
   name = 'Log'
 
   execute() {
@@ -15,5 +15,3 @@ class LogCommand {
       })
   }
 }
-
-module.exports = LogCommand
