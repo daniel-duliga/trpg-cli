@@ -1,3 +1,5 @@
+import { logProgress } from "./console-util.js"
+
 export function rollDice(count, dice) {
     let message = `Rolling ${count}d${dice}: `
 
@@ -15,6 +17,8 @@ export function rollDice(count, dice) {
       }
       message = message.slice(0, message.length - 2)
     }
+
+    logProgress(message)
     
-    return [result, message]
+    return result
   }

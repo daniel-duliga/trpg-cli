@@ -35,9 +35,8 @@ export default class RollDiceCommand {
       if (diceRoll.length > 0) {
         const count = diceRoll[0]
         const dice = diceRoll.length > 1 ? diceRoll[1] : 1
-        const [roll, message] = rollDice(count, dice)
+        const roll = rollDice(count, dice)
         result += roll
-        logProgress(message)
       }
     }
 

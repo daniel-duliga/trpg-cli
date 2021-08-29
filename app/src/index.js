@@ -9,7 +9,7 @@ import fuzzy from 'fuzzy'
 import LogCommand from './commands/log.js'
 import RollDiceCommand from './commands/roll-dice.js'
 import RollTableCommand from './commands/roll-table.js'
-import QuitCommand from './commands/quit.js'
+import { QuitCommand } from './commands/quit.js'
 
 // Main
 

@@ -30,21 +30,36 @@ export default class RollTableCommand {
         },
       ])
       .then((selection) => {
-        const file = fs
-          .readFileSync(`${tablesBasePath}/${selection.option}${csvExtension}`)
-          .toString()
-        const records = parse.parse(file)
-        if (records.length > 0) {
-          return this.rollOnTable(records)
-        } else {
-          logResult('Table has no entries')
-        }
+        return this.handleSelection(selection)
       })
   }
 
-  rollOnTable(output) {
-    const roll = rollDice(1, output.length)[0]
-    const result = output.find((x) => x[0] === roll.toString())[1]
+  handleSelection(selection) {
+    const file = fs
+      .readFileSync(`${tablesBasePath}/${selection.option}${csvExtension}`)
+      .toString()
+    const csvRecords = parse.parse(file)
+    return this.rollOnTable(csvRecords)
+  }
+
+  rollOnTable(tableRecords) {
+    let max = tableRecords[tableRecords.length - 1][0]
+    if (max === '00') {
+      max = 100
+    } else {
+      max = +max
+    }
+    const roll = rollDice(1, max)
+    const result = tableRecords.find((x) => this.checkMatch(x[0], roll))[1]
     logResult(result)
+  }
+
+  checkMatch(index, roll) {
+    if (index.includes('-')) {
+      const ranges = index.split('-').map(x => +x)
+      return ranges[0] <= roll && roll <= ranges[1]
+    } else {
+      return index === roll.toString()
+    }
   }
 }

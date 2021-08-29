@@ -1,4 +1,4 @@
-export default class QuitCommand {
+export class QuitCommand {
     name = 'Quit'
     
     execute() {
