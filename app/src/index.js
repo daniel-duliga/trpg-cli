@@ -3,61 +3,27 @@
 import inquirer from 'inquirer'
 import autocomplete from 'inquirer-autocomplete-prompt'
 import fuzzy from 'fuzzy'
-import stripAnsi from 'strip-ansi'
-import fs from 'fs'
 
 // Local imports
 
 import LogCommand from './commands/log.js'
 import RollDiceCommand from './commands/roll-dice.js'
+import RollTableCommand from './commands/roll-table.js'
 import QuitCommand from './commands/quit.js'
 
 // Main
 
-capture_stdout()
 inquirer.registerPrompt('autocomplete', autocomplete)
 let commands = loadCommands()
 prompt(commands)
 
 // Functions
 
-function capture_stdout() {
-  const filePath = './log.txt'
-
-  var log_file = fs.createWriteStream(filePath, { flags: 'w' })
-
-  hook_stream(process.stdout, write_data)
-
-  function hook_stream(stream, callback) {
-    var old_write = stream.write
-
-    stream.write = (function (write) {
-      return function (string, encoding, fd) {
-        write.apply(stream, arguments) // comments this line if you don't want output in the console
-        callback(string, encoding, fd)
-      }
-    })(stream.write)
-
-    return function () {
-      stream.write = old_write
-    }
-  }
-
-  function write_data(data, encoding) {
-    data = stripAnsi(data)
-    if(data === '') {
-      return
-    }
-    data += '\n'
-    // let existingData = fs.readFileSync(filePath).toString()
-    log_file.write(data)
-  }
-}
-
 function loadCommands() {
   let commands = []
   commands.push(new LogCommand())
   commands.push(new RollDiceCommand())
+  commands.push(new RollTableCommand())
   commands.push(new QuitCommand())
   return commands
 }
@@ -74,8 +40,6 @@ function prompt(commands) {
     ])
     .then((selection) => {
       handlePromptSelection(commands, selection)
-      // unhook_stdout()
-      // unhook_stderr()
     })
     .catch((error) => {
       handlePromptError(error)

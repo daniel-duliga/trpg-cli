@@ -1,5 +1,8 @@
 import inquirer from 'inquirer'
 
+import { logProgress, logResult } from '../utils/console-util.js'
+import { rollDice } from '../utils/dice-util.js'
+
 export default class RollDiceCommand {
   name = 'Roll dice'
 
@@ -32,33 +35,12 @@ export default class RollDiceCommand {
       if (diceRoll.length > 0) {
         const count = diceRoll[0]
         const dice = diceRoll.length > 1 ? diceRoll[1] : 1
-        result += this.roll(count, dice)
-      }
-    }
-
-    console.log('Result: ', result)
-  }
-
-  roll(count, dice) {
-    let message = `Rolling ${count}d${dice}: `
-
-    let result = 0
-
-    if (dice === 1) {
-      result = +count
-      message += `${result}`
-    } else {
-      while (count > 0) {
-        let roll = 1 + Math.floor(Math.random() * dice)
-        message += `${roll}, `
+        const [roll, message] = rollDice(count, dice)
         result += roll
-        count--
+        logProgress(message)
       }
-      message = message.slice(0, message.length - 2)
     }
-    
-    console.log(message)
 
-    return result
+    logResult(result)
   }
 }

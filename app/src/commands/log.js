@@ -11,7 +11,7 @@ export default class LogCommand {
         message: "Log:",
       })
       .then((answer) => {
-        // console.log(answer)
+        // Do nothing
       })
   }
 }
