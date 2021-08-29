@@ -44,7 +44,9 @@ export default class RollTableCommand {
 
   rollOnTable(tableRecords) {
     let max = tableRecords[tableRecords.length - 1][0]
-    if (max === '00') {
+    if (max.includes('-')) {
+      max = max.split('-').map(x => +x)[1]
+    } else if (max === '00') {
       max = 100
     } else {
       max = +max
