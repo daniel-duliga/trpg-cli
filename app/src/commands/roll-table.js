@@ -9,15 +9,17 @@ import { walk } from '../utils/file-util.js'
 
 const tablesBasePath = 'app/data/tables'
 const csvExtension = '.csv'
+const backOption = '👈 Back'
 
 export default class RollTableCommand {
-  name = 'Roll table'
+  name = '📄 Roll table'
 
   execute() {
     let allTables = walk(tablesBasePath)
     allTables = allTables.map((x) =>
       x.replace(`${tablesBasePath}/`, '').replace(csvExtension, ''),
     )
+    allTables.push(backOption)
     return inquirer
       .prompt([
         {
@@ -35,18 +37,24 @@ export default class RollTableCommand {
   }
 
   handleSelection(selection) {
+    if (selection.option === backOption) {
+      logResult('Going back')
+      return
+    }
     const file = fs
       .readFileSync(`${tablesBasePath}/${selection.option}${csvExtension}`)
       .toString()
-    const csvRecords = parse.parse(file)
-    return this.rollOnTable(csvRecords)
+    let csvRecords = parse.parse(file)
+    this.rollOnTable(csvRecords)
+    return this.execute()
   }
 
   rollOnTable(tableRecords) {
     let max = tableRecords[tableRecords.length - 1][0]
     if (max.includes('-')) {
-      max = max.split('-').map(x => +x)[1]
-    } else if (max === '00') {
+      max = max.split('-')[1]
+    } 
+    if (max === '00') {
       max = 100
     } else {
       max = +max
@@ -54,6 +62,7 @@ export default class RollTableCommand {
     const roll = rollDice(1, max)
     const result = tableRecords.find((x) => this.checkMatch(x[0], roll))[1]
     logResult(result)
+    console.log()
   }
 
   checkMatch(index, roll) {

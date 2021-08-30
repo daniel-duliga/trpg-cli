@@ -4,7 +4,7 @@ import { logProgress, logResult } from '../utils/console-util.js'
 import { rollDice } from '../utils/dice-util.js'
 
 export default class RollDiceCommand {
-  name = 'Roll dice'
+  name = '🎲 Roll dice'
 
   execute() {
     return inquirer

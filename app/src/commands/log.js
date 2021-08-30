@@ -1,7 +1,7 @@
 import inquirer from 'inquirer'
 
 export default class LogCommand {
-  name = 'Log'
+  name = '✒️ Log'
 
   execute() {
     return inquirer

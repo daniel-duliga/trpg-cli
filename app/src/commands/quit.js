@@ -1,5 +1,5 @@
 export class QuitCommand {
-    name = 'Quit'
+    name = '❌ Quit'
     
     execute() {
         process.exit()
