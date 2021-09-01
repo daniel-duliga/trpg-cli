@@ -1,0 +1,5 @@
+Edge: $roll_dice(1d3)
+Heart: $roll_dice(1d3)
+Iron: $roll_dice(1d3)
+Shadow: $roll_dice(1d3)
+Wits: $roll_dice(1d3)

@@ -1,8 +1,30 @@
-import { logProgress } from "./console-util.js"
+export function parse(formula) {
+  const operatorsRegEx = /[+]/g
+
+  let diceArray = formula.split(operatorsRegEx)
+  diceArray = diceArray.map((element) => element.trim())
+
+  // Not used for now:
+  // const operators = formula.match(operatorsRegEx)
+
+  let result = 0
+  let messages = []
+  while (diceArray.length > 0) {
+    const diceRoll = diceArray.pop().split('d')
+    if (diceRoll.length > 0) {
+      const count = diceRoll[0]
+      const dice = diceRoll.length > 1 ? diceRoll[1] : 1
+      const [roll, rollMessage] = rollDice(count, dice)
+      result += roll
+      messages.push(rollMessage)
+    }
+  }
+
+  return [result, messages]
+}
 
 export function rollDice(count, dice) {
     let message = `Rolling ${count}d${dice}: `
-
     let result = 0
 
     if (dice === 1) {
@@ -17,8 +39,6 @@ export function rollDice(count, dice) {
       }
       message = message.slice(0, message.length - 2)
     }
-
-    logProgress(message)
-    
-    return result
+  
+    return [result, message]
   }

@@ -9,7 +9,7 @@ import { walk } from '../utils/file-util.js'
 
 const tablesBasePath = 'app/data/tables'
 const csvExtension = '.csv'
-const backOption = '👈 Back'
+const backOption = '* Back'
 
 export default class RollTableCommand {
   name = '📄 Roll table'
@@ -59,7 +59,7 @@ export default class RollTableCommand {
     } else {
       max = +max
     }
-    const roll = rollDice(1, max)
+    const [roll, messages] = rollDice(1, max)
     const result = tableRecords.find((x) => this.checkMatch(x[0], roll))[1]
     logResult(result)
     console.log()

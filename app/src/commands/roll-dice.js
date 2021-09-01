@@ -1,7 +1,7 @@
 import inquirer from 'inquirer'
 
 import { logProgress, logResult } from '../utils/console-util.js'
-import { rollDice } from '../utils/dice-util.js'
+import { parse } from '../utils/dice-util.js'
 
 export default class RollDiceCommand {
   name = '🎲 Roll dice'
@@ -16,30 +16,12 @@ export default class RollDiceCommand {
         },
       ])
       .then((answers) => {
-        return this.parse(answers.formula)
+        const [result, messages] = parse(answers.formula)
+        for (const message of messages) {
+          logProgress(message)
+        }
+        logResult(result)
+        return
       })
-  }
-
-  parse(formula) {
-    const operatorsRegEx = /[+]/g
-
-    let diceArray = formula.split(operatorsRegEx)
-    diceArray = diceArray.map((element) => element.trim())
-
-    // Not used for now:
-    // const operators = formula.match(operatorsRegEx)
-
-    let result = 0
-    while (diceArray.length > 0) {
-      const diceRoll = diceArray.pop().split('d')
-      if (diceRoll.length > 0) {
-        const count = diceRoll[0]
-        const dice = diceRoll.length > 1 ? diceRoll[1] : 1
-        const roll = rollDice(count, dice)
-        result += roll
-      }
-    }
-
-    logResult(result)
   }
 }
