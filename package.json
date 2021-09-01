@@ -2,18 +2,29 @@
   "name": "trpg-cli",
   "version": "0.0.1",
   "description": "Table Top Role Playing Games Command Line Interface",
-  "type": "module",
   "main": "index.ts",
   "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cli-markdown": "^1.7.1",
-    "csv": "^5.5.2",
+    "csv-parse": "^4.16.2",
     "fuzzy": "^0.1.3",
     "inquirer": "^8.1.2",
     "inquirer-autocomplete-prompt": "^1.4.0",
     "strip-ansi": "^7.0.0",
+    "typescript": "^4.4.2",
     "yaml": "2.0.0-7"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^7.3.3",
+    "@types/inquirer-autocomplete-prompt": "^1.3.2",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0"
   }
 }

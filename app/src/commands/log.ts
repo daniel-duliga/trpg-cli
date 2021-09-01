@@ -1,9 +1,10 @@
 import inquirer from 'inquirer'
+import { CommandBase } from './base-command'
 
-export default class LogCommand {
+export class LogCommand extends CommandBase {
   name = '✒️ Log'
 
-  execute() {
+  execute(): Promise<boolean> {
     return inquirer
       .prompt({
         type: 'input',
@@ -11,7 +12,7 @@ export default class LogCommand {
         message: "Log:",
       })
       .then((answer) => {
-        // Do nothing
+        return new Promise(resolve => resolve(true));
       })
   }
 }

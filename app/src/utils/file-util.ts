@@ -1,7 +1,7 @@
 import fs from 'fs'
 
-export function walk (dir) {
-    var results = []
+export function walk (dir: string) {
+    var results: string[] = []
     var list = fs.readdirSync(dir)
     list.forEach(function(file) {
         file = dir + '/' + file

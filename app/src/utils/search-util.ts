@@ -1,6 +1,6 @@
 import fuzzy from 'fuzzy'
 
-export function fuzzySearchStrings(data, input) {
+export function fuzzySearchStrings(data: any[], input: string) {
     if (!input) {
       return data
     } else {

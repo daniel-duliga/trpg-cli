@@ -6,21 +6,22 @@ import fuzzy from 'fuzzy'
 
 // Local imports
 
-import LogCommand from './commands/log.js'
-import RollDiceCommand from './commands/roll-dice.js'
-import RollTableCommand from './commands/roll-table.js'
-import { QuitCommand } from './commands/quit.js'
+import { LogCommand } from './commands/log'
+import { RollDiceCommand } from './commands/roll-dice'
+import { RollTableCommand } from './commands/roll-table'
+import { QuitCommand } from './commands/quit'
+import { CommandBase } from './commands/base-command'
 
 // Main
 
 inquirer.registerPrompt('autocomplete', autocomplete)
-let commands = loadCommands()
+const commands = loadCommands()
 prompt(commands)
 
 // Functions
 
-function loadCommands() {
-  let commands = []
+function loadCommands(): CommandBase[] {
+  const commands: CommandBase[] = [];
   commands.push(new LogCommand())
   commands.push(new RollDiceCommand())
   commands.push(new RollTableCommand())
@@ -28,7 +29,7 @@ function loadCommands() {
   return commands
 }
 
-function prompt(commands) {
+function prompt(commands: CommandBase[]) {
   inquirer
     .prompt([
       {
@@ -46,33 +47,33 @@ function prompt(commands) {
     })
 }
 
-function filterCommands(answersSoFar, input) {
+function filterCommands(answersSoFar: any, input: string) {
   if (!input) {
     return commands
   } else {
-    var fuzzyOptions = {
+    const fuzzyOptions = {
       pre: '<',
       post: '>',
-      extract: function (el) {
+      extract: function (el: CommandBase) {
         return el.name
       },
     }
-    var results = fuzzy.filter(input, commands, fuzzyOptions)
+    const results = fuzzy.filter(input, commands, fuzzyOptions)
     return results.map((x) => x.original)
   }
 }
 
-function handlePromptSelection(commands, selection) {
+function handlePromptSelection(commands: CommandBase[], selection: any) {
   const command = commands.find((x) => x.name === selection.option)
   if (command) {
-    command.execute().then((resp) => {
+    command.execute().then(() => {
       console.log()
       prompt(commands)
     })
   }
 }
 
-function handlePromptError(error) {
+function handlePromptError(error: any) {
   if (error.isTtyError) {
     // Prompt couldn't be rendered in the current environment
   } else {

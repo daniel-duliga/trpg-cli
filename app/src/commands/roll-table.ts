@@ -1,20 +1,21 @@
 import fs from 'fs'
 import inquirer from 'inquirer'
-import parse from 'csv/lib/sync.js'
+import parse from 'csv-parse/lib/sync'
 
-import { fuzzySearchStrings } from '../utils/search-util.js'
-import { logResult } from '../utils/console-util.js'
-import { rollDice } from '../utils/dice-util.js'
-import { walk } from '../utils/file-util.js'
+import { fuzzySearchStrings } from '../utils/search-util'
+import { logResult } from '../utils/console-util'
+import { rollDice } from '../utils/dice-util'
+import { walk } from '../utils/file-util'
+import { CommandBase } from './base-command'
 
 const tablesBasePath = 'app/data/tables'
 const csvExtension = '.csv'
 const backOption = '* Back'
 
-export default class RollTableCommand {
+export class RollTableCommand extends CommandBase {
   name = '📄 Roll table'
 
-  execute() {
+  execute(): Promise<boolean> {
     let allTables = walk(tablesBasePath)
     allTables = allTables.map((x) =>
       x.replace(`${tablesBasePath}/`, '').replace(csvExtension, ''),
@@ -26,46 +27,42 @@ export default class RollTableCommand {
           type: 'autocomplete',
           name: 'option',
           message: 'Table:',
-          source: function (answersSoFar, input) {
-            return fuzzySearchStrings(allTables, input)
-          },
+          source: (answersSoFar: any, input: string) => fuzzySearchStrings(allTables, input)
         },
       ])
-      .then((selection) => {
-        return this.handleSelection(selection)
-      })
+      .then((selection) => this.handleSelection(selection));
   }
 
-  handleSelection(selection) {
+  handleSelection(selection: any): Promise<boolean> {
     if (selection.option === backOption) {
       logResult('Going back')
-      return
+      return new Promise(resolve => resolve(true));
     }
     const file = fs
       .readFileSync(`${tablesBasePath}/${selection.option}${csvExtension}`)
       .toString()
-    let csvRecords = parse.parse(file)
+    const csvRecords = parse(file)
     this.rollOnTable(csvRecords)
     return this.execute()
   }
 
-  rollOnTable(tableRecords) {
+  rollOnTable(tableRecords: any): void {
     let max = tableRecords[tableRecords.length - 1][0]
     if (max.includes('-')) {
       max = max.split('-')[1]
-    } 
+    }
     if (max === '00') {
       max = 100
     } else {
       max = +max
     }
-    const [roll, messages] = rollDice(1, max)
-    const result = tableRecords.find((x) => this.checkMatch(x[0], roll))[1]
+    const roll = rollDice(1, max)
+    const result = tableRecords.find((x: any[]) => this.checkMatch(x[0], roll.value))[1]
     logResult(result)
     console.log()
   }
 
-  checkMatch(index, roll) {
+  checkMatch(index: string, roll: number): boolean {
     if (index.includes('-')) {
       const ranges = index.split('-').map(x => +x)
       return ranges[0] <= roll && roll <= ranges[1]
