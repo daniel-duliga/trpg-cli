@@ -30,23 +30,28 @@ export class RollTableCommand extends CommandBase {
           source: (answersSoFar: any, input: string) => fuzzySearchStrings(allTables, input)
         },
       ])
-      .then((selection) => this.handleSelection(selection));
+      .then(selection => this.handleSelection(selection))
   }
 
   handleSelection(selection: any): Promise<boolean> {
     if (selection.option === backOption) {
       logResult('Going back')
-      return new Promise(resolve => resolve(true));
+      return super.execute()
     }
+
     const file = fs
       .readFileSync(`${tablesBasePath}/${selection.option}${csvExtension}`)
       .toString()
+
     const csvRecords = parse(file)
+
     this.rollOnTable(csvRecords)
+    
     return this.execute()
   }
 
   rollOnTable(tableRecords: any): void {
+    
     let max = tableRecords[tableRecords.length - 1][0]
     if (max.includes('-')) {
       max = max.split('-')[1]
@@ -56,9 +61,13 @@ export class RollTableCommand extends CommandBase {
     } else {
       max = +max
     }
+    
     const roll = rollDice(1, max)
+    
     const result = tableRecords.find((x: any[]) => this.checkMatch(x[0], roll.value))[1]
+    
     logResult(result)
+    
     console.log()
   }
 

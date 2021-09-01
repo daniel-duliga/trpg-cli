@@ -1,7 +1,7 @@
 import YAML from 'yaml'
 import fs from 'fs'
 
-import { parse } from '../../utils/dice-util.js'
+import { rollDiceFormula } from '../../utils/dice-util'
 
 const rollCommand = '$roll_dice'
 
@@ -12,8 +12,8 @@ for (const prop in parsedSheet) {
     if (propValue.startsWith(rollCommand)) {
         let rollFormula = propValue.replace(rollCommand, '')
         rollFormula = rollFormula.slice(1, rollFormula.length - 1)
-        const [diceRoll, messages] = parse(rollFormula)
-        parsedSheet[prop] = diceRoll
+        const roll = rollDiceFormula(rollFormula)
+        parsedSheet[prop] = roll.value
         continue
     }
 }

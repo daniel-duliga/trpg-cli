@@ -1,11 +1,9 @@
 // Package imports
-
 import inquirer from 'inquirer'
 import autocomplete from 'inquirer-autocomplete-prompt'
 import fuzzy from 'fuzzy'
 
 // Local imports
-
 import { LogCommand } from './commands/log'
 import { RollDiceCommand } from './commands/roll-dice'
 import { RollTableCommand } from './commands/roll-table'
@@ -13,7 +11,6 @@ import { QuitCommand } from './commands/quit'
 import { CommandBase } from './commands/base-command'
 
 // Main
-
 inquirer.registerPrompt('autocomplete', autocomplete)
 const commands = loadCommands()
 prompt(commands)
@@ -21,7 +18,7 @@ prompt(commands)
 // Functions
 
 function loadCommands(): CommandBase[] {
-  const commands: CommandBase[] = [];
+  const commands: CommandBase[] = []
   commands.push(new LogCommand())
   commands.push(new RollDiceCommand())
   commands.push(new RollTableCommand())
@@ -39,28 +36,18 @@ function prompt(commands: CommandBase[]) {
         source: filterCommands,
       },
     ])
-    .then((selection) => {
-      handlePromptSelection(commands, selection)
-    })
-    .catch((error) => {
-      handlePromptError(error)
-    })
+    .then(selection => handlePromptSelection(commands, selection))
+    .catch(error => handlePromptError(error))
 }
 
 function filterCommands(answersSoFar: any, input: string) {
   if (!input) {
     return commands
-  } else {
-    const fuzzyOptions = {
-      pre: '<',
-      post: '>',
-      extract: function (el: CommandBase) {
-        return el.name
-      },
-    }
-    const results = fuzzy.filter(input, commands, fuzzyOptions)
-    return results.map((x) => x.original)
   }
+  const fuzzyOptions = { pre: '<', post: '>', extract: (el: CommandBase) => el.name }
+  return fuzzy
+    .filter(input, commands, fuzzyOptions)
+    .map((x) => x.original)
 }
 
 function handlePromptSelection(commands: CommandBase[], selection: any) {

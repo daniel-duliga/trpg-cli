@@ -11,8 +11,6 @@ export class LogCommand extends CommandBase {
         name: 'log',
         message: "Log:",
       })
-      .then((answer) => {
-        return new Promise(resolve => resolve(true));
-      })
+      .then(() => super.execute())
   }
 }

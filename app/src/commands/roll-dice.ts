@@ -22,7 +22,7 @@ export class RollDiceCommand extends CommandBase {
           logProgress(message)
         }
         logResult(rollResult.value.toString())
-        return new Promise(resolve => resolve(true));
+        return super.execute()
       })
   }
 }

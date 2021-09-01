@@ -14,22 +14,22 @@ export function rollDiceFormula(formula: string): DiceRoll {
   // Not used for now:
   // const operators = formula.match(operatorsRegEx)
 
-  let result = new DiceRoll();
+  const result = new DiceRoll()
   while (diceArray.length > 0) {
-    let formulaPart = diceArray.pop()
+    const formulaPart = diceArray.pop()
     if (formulaPart) {
       const formulaParts = formulaPart.split('d')
       if (formulaParts.length > 0) {
         const count = +formulaParts[0]
         const dice = formulaParts.length > 1 ? +formulaParts[1] : 1
         const diceRollResult = rollDice(count, dice)
-        result.value += diceRollResult.value;
-        result.messages.push(diceRollResult.message);
+        result.value += diceRollResult.value
+        result.messages.push(diceRollResult.message)
       }
     }
   }
 
-  return result;
+  return result
 }
 
 class IndividualDiceRoll {
@@ -48,7 +48,7 @@ export function rollDice(count: number, dice: number): IndividualDiceRoll {
       message += `${result}`
     } else {
       while (count > 0) {
-        let roll = 1 + Math.floor(Math.random() * dice)
+        const roll = 1 + Math.floor(Math.random() * dice)
         message += `${roll}, `
         result += roll
         count--

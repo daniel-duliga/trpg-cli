@@ -1,7 +1,7 @@
 export class CommandBase {
-    name = '';
+    name = ''
     
     execute(): Promise<boolean> {
-        return new Promise(resolve => resolve(true));
+        return new Promise(resolve => resolve(true))
     }
 }
