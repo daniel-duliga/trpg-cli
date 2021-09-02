@@ -1,7 +1,7 @@
 import inquirer from 'inquirer'
+import { ConsoleUtil } from '../utils/console-util'
+import { DiceUtil } from '../utils/dice-util'
 
-import { logProgress, logResult } from '../utils/console-util'
-import { rollDiceFormula } from '../utils/dice-util'
 import { CommandBase } from './base-command'
 
 export class RollDiceCommand extends CommandBase {
@@ -17,11 +17,11 @@ export class RollDiceCommand extends CommandBase {
         },
       ])
       .then((answers) => {
-        const rollResult = rollDiceFormula(answers.formula)
+        const rollResult = DiceUtil.rollDiceFormula(answers.formula)
         for (const message of rollResult.messages) {
-          logProgress(message)
+          ConsoleUtil.logProgress(message)
         }
-        logResult(rollResult.value.toString())
+        ConsoleUtil.logResult(rollResult.value.toString())
         return super.execute()
       })
   }

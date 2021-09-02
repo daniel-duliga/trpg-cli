@@ -1,20 +1,23 @@
-edge:
-  name: "Edge"
+Name:
+  type: table_roll
+  value: 'Ironsworn/Character/Name/Ironlander'
+
+Edge:
   type: dice_roll
   value: 1d3
-heart:
-  name: "Heart"
+Heart:
   type: dice_roll
   value: 1d3
-iron:
-  name: "Iron"
+Iron:
   type: dice_roll
   value: 1d3
-shadow:
-  name: "Shadow"
+Shadow:
   type: dice_roll
   value: 1d3
-wits:
-  name: "Wits"
+Wits:
   type: dice_roll
   value: 1d3
+
+Momentum: 2
+Momentum Max: 10
+Momentum Reset: 2
