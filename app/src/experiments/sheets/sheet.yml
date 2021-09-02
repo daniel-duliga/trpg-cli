@@ -1,5 +1,20 @@
-Edge: $roll_dice(1d3)
-Heart: $roll_dice(1d3)
-Iron: $roll_dice(1d3)
-Shadow: $roll_dice(1d3)
-Wits: $roll_dice(1d3)
+edge:
+  name: "Edge"
+  type: dice_roll
+  value: 1d3
+heart:
+  name: "Heart"
+  type: dice_roll
+  value: 1d3
+iron:
+  name: "Iron"
+  type: dice_roll
+  value: 1d3
+shadow:
+  name: "Shadow"
+  type: dice_roll
+  value: 1d3
+wits:
+  name: "Wits"
+  type: dice_roll
+  value: 1d3
