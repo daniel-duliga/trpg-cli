@@ -4,7 +4,7 @@ import { CommandBase } from './command-base'
 import { SearchUtil } from '../utils/search-util'
 import { SheetsUtil } from '../utils/sheets-util'
 
-export class SheetsCommand extends CommandBase {
+export class RollSheetCommand extends CommandBase {
     name = '📜 Roll sheet'
 
     execute(): Promise<boolean> {

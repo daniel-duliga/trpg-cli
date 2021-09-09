@@ -1,6 +1,7 @@
 Name:
   type: table_roll
   value: 'Ironsworn/Character/Name/Ironlander'
+
 Edge:
   type: dice_roll
   value: 1d3
@@ -16,6 +17,7 @@ Shadow:
 Wits:
   type: dice_roll
   value: 1d3
+
 Momentum: 2
 MomentumMax: 10
 MomentumReset: 2

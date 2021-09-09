@@ -7,6 +7,7 @@ Challenge1:
 Challenge2:
   type: dice_roll
   value: 1d10
+
 StrongHit:
   type: eval
   value: $Action > $Challenge1 && $Action > $Challenge2

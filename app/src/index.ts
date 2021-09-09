@@ -9,7 +9,7 @@ import { RollDiceCommand } from './commands/roll-dice'
 import { RollTableCommand } from './commands/roll-table'
 import { QuitCommand } from './commands/quit'
 import { CommandBase } from './commands/command-base'
-import { SheetsCommand } from './commands/sheets-command'
+import { RollSheetCommand } from './commands/roll-sheet'
 
 // Main
 inquirer.registerPrompt('autocomplete', autocomplete)
@@ -23,7 +23,7 @@ function loadCommands(): CommandBase[] {
   commands.push(new LogCommand())
   commands.push(new RollDiceCommand())
   commands.push(new RollTableCommand())
-  commands.push(new SheetsCommand())
+  commands.push(new RollSheetCommand())
   commands.push(new QuitCommand())
   return commands
 }
