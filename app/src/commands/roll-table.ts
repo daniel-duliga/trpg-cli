@@ -5,14 +5,11 @@ import { ConsoleUtil } from '../utils/console-util'
 import { CommandBase } from './base-command'
 import { TableUtil } from '../utils/table-util'
 
-const backOption = '* Back'
-
 export class RollTableCommand extends CommandBase {
   name = '📄 Roll table'
 
   execute(): Promise<boolean> {
     const allTables = TableUtil.getAllTables()
-    allTables.push(backOption)
     return inquirer
       .prompt([
         {
@@ -26,13 +23,9 @@ export class RollTableCommand extends CommandBase {
   }
 
   handleSelection(selection: any): Promise<boolean> {
-    if (selection.option === backOption) {
-      ConsoleUtil.logResult('Going back')
-      return super.execute()
-    }
     const result = TableUtil.rollOnTable(selection.option)
     ConsoleUtil.logResult(result)
     console.log()
-    return this.execute()
+    return super.execute()
   }
 }
