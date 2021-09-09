@@ -4,18 +4,22 @@ import fs from 'fs'
 import { DiceUtil } from '../../utils/dice-util'
 import { TableUtil } from '../../utils/table-util'
 
-const sheet = fs.readFileSync('app/src/experiments/sheets/sheet.yml', 'utf-8')
-const parsedSheet = YAML.parse(sheet)
-for (const fieldName in parsedSheet) {
-    const field = parsedSheet[fieldName]
+const sheetFile = fs.readFileSync('app/src/experiments/sheets/Action Move.yml', 'utf-8')
+const sheet = YAML.parse(sheetFile)
+for (const fieldName in sheet) {
+    const field = sheet[fieldName]
     switch(field.type) {
         case 'dice_roll':
-            parsedSheet[fieldName] = DiceUtil.rollDiceFormula(field.value).value
+            sheet[fieldName] = DiceUtil.rollDiceFormula(field.value).value
             break
         case 'table_roll':
-            parsedSheet[fieldName] = TableUtil.rollOnTable(field.value)
+            sheet[fieldName] = TableUtil.rollOnTable(field.value)
             break
+        case 'eval':
+            field.value = field.value.replaceAll('$', 'sheet.')
+            console.log(field.value)
+            sheet[fieldName] = eval(field.value)
     }
 }
 
-console.log(parsedSheet)
+console.log(sheet)
