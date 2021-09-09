@@ -2,7 +2,7 @@ import inquirer from 'inquirer'
 import { ConsoleUtil } from '../utils/console-util'
 import { DiceUtil } from '../utils/dice-util'
 
-import { CommandBase } from './base-command'
+import { CommandBase } from './command-base'
 
 export class RollDiceCommand extends CommandBase {
   name = '🎲 Roll dice'

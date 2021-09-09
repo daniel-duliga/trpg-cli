@@ -1,14 +1,16 @@
 import fuzzy from 'fuzzy'
 
-export function fuzzySearchStrings(data: any[], input: string) {
+export class SearchUtil {
+  static fuzzySearchStrings(data: string[], input: string): string[] {
     if (!input) {
       return data
     } else {
-      var fuzzyOptions = {
+      const fuzzyOptions = {
         pre: '<',
         post: '>',
       }
-      var results = fuzzy.filter(input, data, fuzzyOptions)
+      const results = fuzzy.filter(input, data, fuzzyOptions)
       return results.map((x) => x.original)
     }
   }
+}

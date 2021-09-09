@@ -1,12 +1,12 @@
 import inquirer from 'inquirer'
 
-import { fuzzySearchStrings } from '../utils/search-util'
+import { SearchUtil } from '../utils/search-util'
 import { ConsoleUtil } from '../utils/console-util'
-import { CommandBase } from './base-command'
-import { TableUtil } from '../utils/table-util'
+import { CommandBase } from './command-base'
+import { TableUtil } from '../utils/tables-util'
 
 export class RollTableCommand extends CommandBase {
-  name = '📄 Roll table'
+  name = '🎱 Roll table'
 
   execute(): Promise<boolean> {
     const allTables = TableUtil.getAllTables()
@@ -16,7 +16,7 @@ export class RollTableCommand extends CommandBase {
           type: 'autocomplete',
           name: 'option',
           message: 'Table:',
-          source: (answersSoFar: any, input: string) => fuzzySearchStrings(allTables, input)
+          source: (answersSoFar: any, input: string) => SearchUtil.fuzzySearchStrings(allTables, input)
         },
       ])
       .then(selection => this.handleSelection(selection))

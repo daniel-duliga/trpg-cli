@@ -1,7 +1,7 @@
 import fs from 'fs';
 import parse from 'csv-parse/lib/sync'
 
-import { walk } from '../utils/file-util'
+import { FileUtil } from './file-util'
 import { DiceUtil } from './dice-util';
 
 const tablesBasePath = 'app/data/tables'
@@ -9,7 +9,7 @@ const csvExtension = '.csv'
 
 export class TableUtil {
     static getAllTables(): string[] {
-        let allTables = walk(tablesBasePath)
+        let allTables = FileUtil.walk(tablesBasePath)
         allTables = allTables.map((x) =>
             x.replace(`${tablesBasePath}/`, '').replace(csvExtension, ''),
         )
@@ -24,6 +24,13 @@ export class TableUtil {
         return result
     }
 
+    private static getTable(path: string): any {
+        const file = fs
+            .readFileSync(`${tablesBasePath}/${path}${csvExtension}`)
+            .toString()
+        return parse(file)
+    }
+
     private static getMaxIndex(table: any) {
         let max = table[table.length - 1][0];
         if (max.includes('-')) {
@@ -35,13 +42,6 @@ export class TableUtil {
             max = +max;
         }
         return max;
-    }
-
-    private static getTable(path: string): any {
-        const file = fs
-            .readFileSync(`${tablesBasePath}/${path}${csvExtension}`)
-            .toString()
-        return parse(file)
     }
 
     private static checkMatch(index: string, roll: number): boolean {

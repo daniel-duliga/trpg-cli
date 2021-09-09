@@ -17,5 +17,5 @@ Wits:
   type: dice_roll
   value: 1d3
 Momentum: 2
-Momentum Max: 10
-Momentum Reset: 2
+MomentumMax: 10
+MomentumReset: 2

@@ -1,5 +1,5 @@
 import inquirer from 'inquirer'
-import { CommandBase } from './base-command'
+import { CommandBase } from './command-base'
 
 export class LogCommand extends CommandBase {
   name = '✒️ Log'

@@ -1,4 +1,4 @@
-import { CommandBase } from "./base-command"
+import { CommandBase } from "./command-base"
 
 export class QuitCommand extends CommandBase {
     name = '❌ Quit'
