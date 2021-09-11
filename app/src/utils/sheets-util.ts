@@ -1,20 +1,18 @@
 import fs from 'fs'
 import YAML from 'yaml'
-import { DiceUtil } from './dice-util';
 
+import { dataBasePaths, fileExtensions } from '../constants';
+import { DiceUtil } from './dice-util';
 import { FileUtil } from "./file-util";
 import { TableUtil } from './tables-util';
 
-const sheetsBasePath = 'app/data/sheets'
-const ymlExtension = '.yml'
-
 export class SheetsUtil {
     static getAllSheets(): string[] {
-        return FileUtil.getFilesListFromPath(sheetsBasePath, ymlExtension)
+        return FileUtil.getFilesListFromPath(dataBasePaths.sheets, fileExtensions.yml)
     }
     
     static rollSheet(sheetPath: string): any {
-        const sheetFile = fs.readFileSync(`${sheetsBasePath}/${sheetPath}${ymlExtension}`, 'utf-8')
+        const sheetFile = fs.readFileSync(`${dataBasePaths.sheets}/${sheetPath}${fileExtensions.yml}`, 'utf-8')
         const sheet = YAML.parse(sheetFile)
         for (const fieldName in sheet) {
             const field = sheet[fieldName]
@@ -28,7 +26,7 @@ export class SheetsUtil {
                     break
                 }
                 case 'eval': {
-                    const formula = field.value.replaceAll('$', 'sheet.')
+                    const formula = field.value.replace(/\$/g, 'sheet.')
                     sheet[fieldName] = eval(formula)
                 }
             }

@@ -3,15 +3,13 @@ import parse from 'csv-parse/lib/sync'
 
 import { FileUtil } from './file-util'
 import { DiceUtil } from './dice-util';
-
-const tablesBasePath = 'app/data/tables'
-const csvExtension = '.csv'
+import { dataBasePaths, fileExtensions } from '../constants';
 
 export class TableUtil {
     static getAllTables(): string[] {
-        let allTables = FileUtil.walk(tablesBasePath)
+        let allTables = FileUtil.walk(dataBasePaths.tables)
         allTables = allTables.map((x) =>
-            x.replace(`${tablesBasePath}/`, '').replace(csvExtension, ''),
+            x.replace(`${dataBasePaths.tables}/`, '').replace(fileExtensions.csv, ''),
         )
         return allTables
     }
@@ -26,7 +24,7 @@ export class TableUtil {
 
     private static getTable(path: string): any {
         const file = fs
-            .readFileSync(`${tablesBasePath}/${path}${csvExtension}`)
+            .readFileSync(`${dataBasePaths.tables}/${path}${fileExtensions.csv}`)
             .toString()
         return parse(file)
     }

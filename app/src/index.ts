@@ -5,11 +5,12 @@ import fuzzy from 'fuzzy'
 
 // Local imports
 import { LogCommand } from './commands/log'
-import { RollDiceCommand } from './commands/roll-dice'
-import { RollTableCommand } from './commands/roll-table'
+import { DiceCommand } from './commands/dice'
+import { TablesCommand } from './commands/tables'
 import { QuitCommand } from './commands/quit'
 import { CommandBase } from './commands/command-base'
-import { RollSheetCommand } from './commands/roll-sheet'
+import { SheetsCommand } from './commands/sheets'
+import { EntitiesCommand } from './commands/entities'
 
 // Main
 inquirer.registerPrompt('autocomplete', autocomplete)
@@ -21,9 +22,10 @@ prompt(commands)
 function loadCommands(): CommandBase[] {
   const commands: CommandBase[] = []
   commands.push(new LogCommand())
-  commands.push(new RollDiceCommand())
-  commands.push(new RollTableCommand())
-  commands.push(new RollSheetCommand())
+  commands.push(new DiceCommand())
+  commands.push(new TablesCommand())
+  commands.push(new EntitiesCommand())
+  commands.push(new SheetsCommand())
   commands.push(new QuitCommand())
   return commands
 }

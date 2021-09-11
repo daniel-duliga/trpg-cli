@@ -4,8 +4,8 @@ import { DiceUtil } from '../utils/dice-util'
 
 import { CommandBase } from './command-base'
 
-export class RollDiceCommand extends CommandBase {
-  name = '🎲 Roll dice'
+export class DiceCommand extends CommandBase {
+  name = '🎲 Dice'
 
   execute(): Promise<boolean> {
     return inquirer
@@ -16,8 +16,8 @@ export class RollDiceCommand extends CommandBase {
           message: 'Dice formula:',
         },
       ])
-      .then((answers) => {
-        const rollResult = DiceUtil.rollDiceFormula(answers.formula)
+      .then((answer) => {
+        const rollResult = DiceUtil.rollDiceFormula(answer.formula)
         for (const message of rollResult.messages) {
           ConsoleUtil.logProgress(message)
         }

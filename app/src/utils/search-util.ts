@@ -5,6 +5,7 @@ export class SearchUtil {
     if (!input) {
       return data
     } else {
+      input = input.replace(/ /g, '')
       const fuzzyOptions = {
         pre: '<',
         post: '>',

@@ -5,8 +5,8 @@ import { ConsoleUtil } from '../utils/console-util'
 import { CommandBase } from './command-base'
 import { TableUtil } from '../utils/tables-util'
 
-export class RollTableCommand extends CommandBase {
-  name = '🎱 Roll table'
+export class TablesCommand extends CommandBase {
+  name = '🎱 Tables'
 
   execute(): Promise<boolean> {
     const allTables = TableUtil.getAllTables()
@@ -25,7 +25,6 @@ export class RollTableCommand extends CommandBase {
   handleSelection(selection: any): Promise<boolean> {
     const result = TableUtil.rollOnTable(selection.option)
     ConsoleUtil.logResult(result)
-    console.log()
     return super.execute()
   }
 }
