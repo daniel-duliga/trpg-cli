@@ -19,9 +19,35 @@ Stats:
     Wits:
       type: dice_roll
       value: 1d3
+Tracks:
+  type: section
+  value:
+    Health: 5
+    Spirit: 5
+    Supply: 5
 Momentum:
   type: section
   value:
     Current: 2
     Max: 10
     Reset: 2
+Debilities:
+  type: section
+  value:
+    Conditions:
+      type: section
+      value:
+        Wounded: false
+        Unprepared: false
+        Shaken: false
+        Encumbered: false
+    Banes: 
+      type: section
+      value:
+        Maimed: false
+        Corrupted: false
+    Burdens:
+      type: section
+      value:
+        Cursed: false
+        Tormented: false

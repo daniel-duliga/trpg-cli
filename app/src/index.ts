@@ -11,6 +11,9 @@ import { QuitCommand } from './commands/quit'
 import { CommandBase } from './commands/command-base'
 import { SheetsCommand } from './commands/sheets'
 import { EntitiesCommand } from './commands/entities'
+import { Config } from './config'
+import { Entities } from './trpg/entities'
+import { ConsoleUtil } from './utils/console-util'
 
 // Main
 inquirer.registerPrompt('autocomplete', autocomplete)
@@ -31,6 +34,12 @@ function loadCommands(): CommandBase[] {
 }
 
 function prompt(commands: CommandBase[]) {
+  const config = Config.read()
+  if (config.defaultEntity) {
+    const entity = Entities.getEntity(config.defaultEntity)
+    ConsoleUtil.logObject(entity)
+  }
+
   inquirer
     .prompt([
       {
@@ -40,8 +49,8 @@ function prompt(commands: CommandBase[]) {
         source: filterCommands,
       },
     ])
-    .then(selection => handlePromptSelection(commands, selection))
-    .catch(error => handlePromptError(error))
+    .then(selection => handleSelection(commands, selection))
+    .catch(error => handleError(error))
 }
 
 function filterCommands(answersSoFar: any, input: string) {
@@ -54,7 +63,7 @@ function filterCommands(answersSoFar: any, input: string) {
     .map((x) => x.original)
 }
 
-function handlePromptSelection(commands: CommandBase[], selection: any) {
+function handleSelection(commands: CommandBase[], selection: any) {
   const command = commands.find((x) => x.name === selection.option)
   if (command) {
     command.execute().then(() => {
@@ -64,7 +73,7 @@ function handlePromptSelection(commands: CommandBase[], selection: any) {
   }
 }
 
-function handlePromptError(error: any) {
+function handleError(error: any) {
   if (error.isTtyError) {
     // Prompt couldn't be rendered in the current environment
   } else {

@@ -5,8 +5,12 @@ export class ConsoleUtil {
         console.log('! Result:', message, ...args)
     }
 
-    static logObjectResult(data: any, ...args: any[]): void {
+    static logObjectResult(data: any): void {
         console.log('! Result:')
+        this.logObject(data)
+    }
+
+    static logObject(data: any): void {
         console.log(prettyjson.render(data))
     }
     

@@ -17,7 +17,8 @@ export class SheetsCommand extends CommandBase {
                     type: 'autocomplete',
                     name: 'option',
                     message: 'Sheet:',
-                    source: (answersSoFar: any, input: string) => SearchUtil.fuzzySearchStrings(allSheets, input)
+                    source: (answersSoFar: any, input: string) => 
+                        SearchUtil.fuzzySearchStrings(allSheets, input)
                 },
             ])
             .then(selection => this.handleSheetSelection(selection.option))
@@ -27,14 +28,14 @@ export class SheetsCommand extends CommandBase {
         const sheet = Sheets.rollSheet(sheetPath)
         ConsoleUtil.logObjectResult(sheet)
         console.log()
-
         return inquirer
             .prompt([
                 {
                     type: 'autocomplete',
                     name: 'option',
                     message: 'Options:',
-                    source: (answersSoFar: any, input: string) => SearchUtil.fuzzySearchStrings(['Save as entity', 'Roll another', 'Back'], input)
+                    source: (answersSoFar: any, input: string) => 
+                        SearchUtil.fuzzySearchStrings(['Save as entity', 'Roll another', 'Back'], input)
                 },
             ])
             .then(selection => this.handleSheetOption(sheet, selection.option))
@@ -47,9 +48,6 @@ export class SheetsCommand extends CommandBase {
             }
             case 'Roll another': {
                 return this.execute()
-            }
-            case 'Back': {
-                return super.execute()
             }
             default: {
                 return super.execute()
