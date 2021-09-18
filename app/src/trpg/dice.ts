@@ -1,4 +1,4 @@
-export class DiceUtil {
+export class Dice {
   
   static rollDiceFormula(formula: string): DiceRoll {
     const operatorsRegEx = /[+]/g
@@ -17,7 +17,7 @@ export class DiceUtil {
         if (formulaParts.length > 0) {
           const count = +formulaParts[0]
           const dice = formulaParts.length > 1 ? +formulaParts[1] : 1
-          const diceRollResult = DiceUtil.rollDice(count, dice)
+          const diceRollResult = Dice.rollDice(count, dice)
           result.value += diceRollResult.value
           result.messages.push(diceRollResult.message)
         }

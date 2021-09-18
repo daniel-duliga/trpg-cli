@@ -1,11 +1,11 @@
 import fs from 'fs';
 import parse from 'csv-parse/lib/sync'
 
-import { FileUtil } from './file-util'
-import { DiceUtil } from './dice-util';
+import { FileUtil } from '../utils/file-util'
+import { Dice } from './dice';
 import { dataBasePaths, fileExtensions } from '../constants';
 
-export class TableUtil {
+export class Tables {
     static getAllTables(): string[] {
         let allTables = FileUtil.walk(dataBasePaths.tables)
         allTables = allTables.map((x) =>
@@ -16,8 +16,8 @@ export class TableUtil {
 
     static rollOnTable(path: string): string {
         const table = this.getTable(path)
-        const max = TableUtil.getMaxIndex(table);
-        const roll = DiceUtil.rollDice(1, max)
+        const max = Tables.getMaxIndex(table);
+        const roll = Dice.rollDice(1, max)
         const result = table.find((x: any[]) => this.checkMatch(x[0], roll.value))[1]
         return result
     }

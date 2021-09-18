@@ -1,7 +1,7 @@
 import { dataBasePaths, fileExtensions } from "../constants";
-import { FileUtil } from "./file-util";
+import { FileUtil } from '../utils/file-util'
 
-export class EntitiesUtil {
+export class Entities {
     static getAllEntities(): string[] {
         return FileUtil.getFilesListFromPath(dataBasePaths.entities, fileExtensions.json)
     }

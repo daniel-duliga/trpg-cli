@@ -1,16 +1,16 @@
 import inquirer from 'inquirer'
 
 import { CommandBase } from './command-base'
-import { SearchUtil } from '../utils/search-util'
-import { SheetsUtil } from '../utils/sheets-util'
+import { Sheets } from '../trpg/sheets'
+import { Entities } from '../trpg/entities'
 import { ConsoleUtil } from '../utils/console-util'
-import { EntitiesUtil } from '../utils/entities-util'
+import { SearchUtil } from '../utils/search-util'
 
 export class SheetsCommand extends CommandBase {
     name = '📜 Sheets'
 
     execute(): Promise<boolean> {
-        const allSheets = SheetsUtil.getAllSheets()
+        const allSheets = Sheets.getAllSheets()
         return inquirer
             .prompt([
                 {
@@ -24,7 +24,7 @@ export class SheetsCommand extends CommandBase {
     }
 
     handleSheetSelection(sheetPath: string): Promise<boolean> {
-        const sheet = SheetsUtil.rollSheet(sheetPath)
+        const sheet = Sheets.rollSheet(sheetPath)
         ConsoleUtil.logObjectResult(sheet)
         console.log()
 
@@ -67,7 +67,7 @@ export class SheetsCommand extends CommandBase {
                 },
             ])
             .then((answer) => {
-                EntitiesUtil.saveSheetAsEntity(answer.value, sheet)
+                Entities.saveSheetAsEntity(answer.value, sheet)
                 return super.execute()
             })
     }

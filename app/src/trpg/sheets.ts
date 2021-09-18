@@ -2,11 +2,11 @@ import fs from 'fs'
 import YAML from 'yaml'
 
 import { dataBasePaths, fileExtensions } from '../constants'
-import { DiceUtil } from './dice-util'
-import { FileUtil } from "./file-util"
-import { TableUtil } from './tables-util'
+import { Dice } from './dice'
+import { FileUtil } from "../utils/file-util"
+import { Tables } from './tables'
 
-export class SheetsUtil {
+export class Sheets {
     static getAllSheets(): string[] {
         return FileUtil.getFilesListFromPath(dataBasePaths.sheets, fileExtensions.yml)
     }
@@ -14,7 +14,7 @@ export class SheetsUtil {
     static rollSheet(sheetPath: string): any {
         const sheetFile = fs.readFileSync(`${dataBasePaths.sheets}/${sheetPath}${fileExtensions.yml}`, 'utf-8')
         const sheet = YAML.parse(sheetFile)
-        return SheetsUtil.processSheet(sheet)
+        return Sheets.processSheet(sheet)
     }
 
     private static processSheet(sheet: any): any {
@@ -22,11 +22,11 @@ export class SheetsUtil {
             const field = sheet[fieldName]
             switch (field.type) {
                 case 'dice_roll': {
-                    sheet[fieldName] = DiceUtil.rollDiceFormula(field.value).value
+                    sheet[fieldName] = Dice.rollDiceFormula(field.value).value
                     break
                 }
                 case 'table_roll': {
-                    sheet[fieldName] = TableUtil.rollOnTable(field.value)
+                    sheet[fieldName] = Tables.rollOnTable(field.value)
                     break
                 }
                 case 'eval': {
@@ -35,7 +35,7 @@ export class SheetsUtil {
                     break
                 }
                 case 'section': {
-                    sheet[fieldName] = SheetsUtil.processSheet(field.value)
+                    sheet[fieldName] = Sheets.processSheet(field.value)
                 }
             }
         }

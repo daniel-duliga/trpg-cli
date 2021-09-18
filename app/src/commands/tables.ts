@@ -3,13 +3,13 @@ import inquirer from 'inquirer'
 import { SearchUtil } from '../utils/search-util'
 import { ConsoleUtil } from '../utils/console-util'
 import { CommandBase } from './command-base'
-import { TableUtil } from '../utils/tables-util'
+import { Tables } from '../trpg/tables'
 
 export class TablesCommand extends CommandBase {
   name = '🎱 Tables'
 
   execute(): Promise<boolean> {
-    const allTables = TableUtil.getAllTables()
+    const allTables = Tables.getAllTables()
     return inquirer
       .prompt([
         {
@@ -23,7 +23,7 @@ export class TablesCommand extends CommandBase {
   }
 
   handleSelection(selection: any): Promise<boolean> {
-    const result = TableUtil.rollOnTable(selection.option)
+    const result = Tables.rollOnTable(selection.option)
     ConsoleUtil.logStringResult(result)
     return super.execute()
   }
