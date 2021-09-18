@@ -1,23 +1,27 @@
 Name:
   type: table_roll
   value: 'Ironsworn/Character/Name/Ironlander'
-
-Edge:
-  type: dice_roll
-  value: 1d3
-Heart:
-  type: dice_roll
-  value: 1d3
-Iron:
-  type: dice_roll
-  value: 1d3
-Shadow:
-  type: dice_roll
-  value: 1d3
-Wits:
-  type: dice_roll
-  value: 1d3
-
-Momentum: 2
-MomentumMax: 10
-MomentumReset: 2
+Stats:
+  type: section
+  value:
+    Edge:
+      type: dice_roll
+      value: 1d3
+    Heart:
+      type: dice_roll
+      value: 1d3
+    Iron:
+      type: dice_roll
+      value: 1d3
+    Shadow:
+      type: dice_roll
+      value: 1d3
+    Wits:
+      type: dice_roll
+      value: 1d3
+Momentum:
+  type: section
+  value:
+    Current: 2
+    Max: 10
+    Reset: 2
