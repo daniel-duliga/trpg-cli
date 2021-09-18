@@ -24,7 +24,7 @@ export class EntitiesCommand extends CommandBase {
 
     handleSheetSelection(entityPath: string): Promise<boolean> {
         const entity = EntitiesUtil.getEntity(entityPath)
-        ConsoleUtil.logResult(entity)
+        ConsoleUtil.logObjectResult(entity)
         return super.execute()
     }
 }

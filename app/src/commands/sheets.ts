@@ -25,7 +25,7 @@ export class SheetsCommand extends CommandBase {
 
     handleSheetSelection(sheetPath: string): Promise<boolean> {
         const sheet = SheetsUtil.rollSheet(sheetPath)
-        ConsoleUtil.logResult(sheet)
+        ConsoleUtil.logObjectResult(sheet)
         console.log()
 
         return inquirer
@@ -34,7 +34,7 @@ export class SheetsCommand extends CommandBase {
                     type: 'autocomplete',
                     name: 'option',
                     message: 'Options:',
-                    source: (answersSoFar: any, input: string) => SearchUtil.fuzzySearchStrings(['Save as entity', 'Re-roll', 'Back'], input)
+                    source: (answersSoFar: any, input: string) => SearchUtil.fuzzySearchStrings(['Save as entity', 'Roll another', 'Back'], input)
                 },
             ])
             .then(selection => this.handleSheetOption(sheet, selection.option))
@@ -45,7 +45,7 @@ export class SheetsCommand extends CommandBase {
             case 'Save as entity': {
                 return this.saveAsEntity(sheet)
             }
-            case 'Re-roll': {
+            case 'Roll another': {
                 return this.execute()
             }
             case 'Back': {

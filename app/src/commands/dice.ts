@@ -21,7 +21,7 @@ export class DiceCommand extends CommandBase {
         for (const message of rollResult.messages) {
           ConsoleUtil.logProgress(message)
         }
-        ConsoleUtil.logResult(rollResult.value.toString())
+        ConsoleUtil.logStringResult(rollResult.value.toString())
         return super.execute()
       })
   }

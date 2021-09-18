@@ -24,7 +24,7 @@ export class TablesCommand extends CommandBase {
 
   handleSelection(selection: any): Promise<boolean> {
     const result = TableUtil.rollOnTable(selection.option)
-    ConsoleUtil.logResult(result)
+    ConsoleUtil.logStringResult(result)
     return super.execute()
   }
 }
