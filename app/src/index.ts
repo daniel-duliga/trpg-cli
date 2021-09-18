@@ -11,9 +11,7 @@ import { QuitCommand } from './commands/quit'
 import { CommandBase } from './commands/command-base'
 import { SheetsCommand } from './commands/sheets'
 import { EntitiesCommand } from './commands/entities'
-import { Config } from './config'
-import { Entities } from './trpg/entities'
-import { ConsoleUtil } from './utils/console-util'
+import { DefaultEntityCommand } from './commands/default-entity'
 
 // Main
 inquirer.registerPrompt('autocomplete', autocomplete)
@@ -23,23 +21,18 @@ prompt(commands)
 // Functions
 
 function loadCommands(): CommandBase[] {
-  const commands: CommandBase[] = []
-  commands.push(new LogCommand())
-  commands.push(new DiceCommand())
-  commands.push(new TablesCommand())
-  commands.push(new EntitiesCommand())
-  commands.push(new SheetsCommand())
-  commands.push(new QuitCommand())
-  return commands
+  return [
+    new LogCommand(),
+    new DefaultEntityCommand(),
+    new DiceCommand(),
+    new TablesCommand(),
+    new EntitiesCommand(),
+    new SheetsCommand(),
+    new QuitCommand(),
+  ]
 }
 
 function prompt(commands: CommandBase[]) {
-  const config = Config.read()
-  if (config.defaultEntity) {
-    const entity = Entities.getEntity(config.defaultEntity)
-    ConsoleUtil.logObject(entity)
-  }
-
   inquirer
     .prompt([
       {

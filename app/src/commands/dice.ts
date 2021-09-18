@@ -5,7 +5,7 @@ import { Dice } from '../trpg/dice'
 import { CommandBase } from './command-base'
 
 export class DiceCommand extends CommandBase {
-  name = '🎲 Dice'
+  name = '🎲 Roll Dice'
 
   execute(): Promise<boolean> {
     return inquirer

@@ -6,7 +6,7 @@ import { CommandBase } from './command-base'
 import { Tables } from '../trpg/tables'
 
 export class TablesCommand extends CommandBase {
-  name = '🎱 Tables'
+  name = '🎱 Roll Table'
 
   execute(): Promise<boolean> {
     const allTables = Tables.getAllTables()

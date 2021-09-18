@@ -7,7 +7,7 @@ import { SearchUtil } from "../utils/search-util"
 import { Config } from "../config"
 
 export class EntitiesCommand extends CommandBase {
-    name = "🎭 Entities"
+    name = "🎭 View Entities"
 
     execute(): Promise<boolean> {
         const allEntities = Entities.getAllEntities()

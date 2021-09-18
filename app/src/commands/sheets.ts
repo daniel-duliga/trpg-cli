@@ -7,7 +7,7 @@ import { ConsoleUtil } from '../utils/console-util'
 import { SearchUtil } from '../utils/search-util'
 
 export class SheetsCommand extends CommandBase {
-    name = '📜 Sheets'
+    name = '📜 Roll Sheet'
 
     execute(): Promise<boolean> {
         const allSheets = Sheets.getAllSheets()
