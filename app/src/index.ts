@@ -26,8 +26,8 @@ function loadCommands(): CommandBase[] {
     new DefaultEntityCommand(),
     new DiceCommand(),
     new TablesCommand(),
-    new EntitiesCommand(),
     new SheetsCommand(),
+    new EntitiesCommand(),
     new QuitCommand(),
   ]
 }

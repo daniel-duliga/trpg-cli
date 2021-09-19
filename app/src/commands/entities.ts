@@ -35,7 +35,7 @@ export class EntitiesCommand extends CommandBase {
                     name: 'value',
                     message: 'Options:',
                     source: (answersSoFar: any, input: string) => 
-                        SearchUtil.fuzzySearchStrings(['Set as default', 'Back'], input)
+                        SearchUtil.fuzzySearchStrings(['Set as Character Sheet', 'Back'], input)
                 },
             ])
             .then(selection => this.handleOption(selection.value, entityPath))
@@ -43,7 +43,7 @@ export class EntitiesCommand extends CommandBase {
 
     handleOption(option: string, entityPath: string): Promise<boolean> {
         switch (option) {
-            case 'Set as default': {
+            case 'Set as Character Sheet': {
                 const config = Config.read()
                 config.defaultEntity = entityPath
                 Config.write(config)

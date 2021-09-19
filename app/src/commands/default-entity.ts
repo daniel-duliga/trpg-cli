@@ -4,7 +4,7 @@ import { ConsoleUtil } from "../utils/console-util";
 import { CommandBase } from "./command-base";
 
 export class DefaultEntityCommand extends CommandBase {
-    name = '🌟 View Default Entity'
+    name = '🌟 Character Sheet'
 
     execute(): Promise<boolean> {
         const config = Config.read()
