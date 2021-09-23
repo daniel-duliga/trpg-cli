@@ -4,14 +4,15 @@ import autocomplete from 'inquirer-autocomplete-prompt'
 import fuzzy from 'fuzzy'
 
 // Local imports
-import { LogCommand } from './commands/log'
-import { DiceCommand } from './commands/dice'
-import { TablesCommand } from './commands/tables'
-import { QuitCommand } from './commands/quit'
-import { CommandBase } from './commands/command-base'
-import { SheetsCommand } from './commands/sheets'
-import { EntitiesCommand } from './commands/entities'
-import { DefaultEntityCommand } from './commands/default-entity'
+import { LogCommand } from './commands/log-command'
+import { DiceCommand } from './commands/dice-command'
+import { TablesCommand } from './commands/tables-command'
+import { QuitCommand } from './commands/quit-command'
+import { BaseCommand } from './commands/base-command'
+import { SheetsCommand } from './commands/sheets-command'
+import { EntitiesCommand } from './commands/entities-command'
+import { CharacterSheetCommand } from './commands/character-sheet-command'
+import { MovesCommand } from './commands/moves-command'
 
 // Main
 inquirer.registerPrompt('autocomplete', autocomplete)
@@ -20,10 +21,11 @@ prompt(commands)
 
 // Functions
 
-function loadCommands(): CommandBase[] {
+function loadCommands(): BaseCommand[] {
   return [
     new LogCommand(),
-    new DefaultEntityCommand(),
+    new CharacterSheetCommand(),
+    new MovesCommand(),
     new DiceCommand(),
     new TablesCommand(),
     new SheetsCommand(),
@@ -32,7 +34,7 @@ function loadCommands(): CommandBase[] {
   ]
 }
 
-function prompt(commands: CommandBase[]) {
+function prompt(commands: BaseCommand[]) {
   inquirer
     .prompt([
       {
@@ -40,6 +42,7 @@ function prompt(commands: CommandBase[]) {
         name: 'option',
         message: 'Command:',
         source: filterCommands,
+        pageSize: 10
       },
     ])
     .then(selection => handleSelection(commands, selection))
@@ -50,13 +53,13 @@ function filterCommands(answersSoFar: any, input: string) {
   if (!input) {
     return commands
   }
-  const fuzzyOptions = { pre: '<', post: '>', extract: (el: CommandBase) => el.name }
+  const fuzzyOptions = { pre: '<', post: '>', extract: (el: BaseCommand) => el.name }
   return fuzzy
     .filter(input, commands, fuzzyOptions)
     .map((x) => x.original)
 }
 
-function handleSelection(commands: CommandBase[], selection: any) {
+function handleSelection(commands: BaseCommand[], selection: any) {
   const command = commands.find((x) => x.name === selection.option)
   if (command) {
     command.execute().then(() => {

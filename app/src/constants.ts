@@ -1,6 +1,7 @@
 export const dataBasePaths = {
     data: 'app/data',
-    entities: `app/data/entities`,
+    entities: 'app/data/entities',
+    moves: 'app/data/moves',
     sheets: 'app/data/sheets',
     tables: 'app/data/tables',
 }

@@ -1,18 +1,18 @@
 Name:
-  type: table_roll
+  type: table
   value: 'Ironsworn/Character/Name/Ironlander'
 Descriptor1:
-  type: table_roll
+  type: table
   value: 'Ironsworn\Character\Descriptor'
 Descriptor2:
-  type: table_roll
+  type: table
   value: 'Ironsworn\Character\Descriptor'
 Role:
-  type: table_roll
+  type: table
   value: 'Ironsworn\Character\Role'
 Goal:
-  type: table_roll
+  type: table
   value: 'Ironsworn\Character\Goal'
 ChallengeRank:
-  type: table_roll
+  type: table
   value: 'Ironsworn\Challenge Rank'

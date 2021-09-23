@@ -1,0 +1,37 @@
+# Roll the dice
+Action:
+  type: dice
+  value: 1d6
+Challenge1:
+  type: dice
+  value: 1d10
+Challenge2:
+  type: dice
+  value: 1d10
+
+# Compute dice roll
+StrongHit:
+  type: eval
+  value: $Action > $Challenge1 && $Action > $Challenge2
+Miss:
+  type: eval
+  value: $Action < $Challenge1 && $Action < $Challenge2
+Opportunity:
+  type: eval
+  value: $StrongHit && $Challenge1 == $Challenge2
+Complication:
+  type: eval
+  value: $Miss && $Challenge1 == $Challenge2
+
+# Compute message
+DiceRolls:
+  type: eval
+  value: $Action + " vs. " + $Challenge1 + ", " + $Challenge2
+Result:
+  type: eval
+  value: '($StrongHit ? "Strong hit" : $Miss ? "Miss" : "Weak hit") + ($Complication ? " & Complication" : $Opportunity ? " & Opportunity" : "") + "!"'
+
+# Output
+Output:
+  type: eval
+  value: $Result + " (" + $DiceRolls + ")"

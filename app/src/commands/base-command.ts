@@ -1,6 +1,4 @@
-import { Config } from "../config"
-
-export class CommandBase {
+export class BaseCommand {
     name = ''
 
     execute(): Promise<boolean> {

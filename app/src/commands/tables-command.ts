@@ -2,10 +2,10 @@ import inquirer from 'inquirer'
 
 import { SearchUtil } from '../utils/search-util'
 import { ConsoleUtil } from '../utils/console-util'
-import { CommandBase } from './command-base'
+import { BaseCommand } from './base-command'
 import { Tables } from '../trpg/tables'
 
-export class TablesCommand extends CommandBase {
+export class TablesCommand extends BaseCommand {
   name = '🎱 Roll Table'
 
   execute(): Promise<boolean> {

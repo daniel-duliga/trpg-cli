@@ -1,12 +1,12 @@
 import inquirer from "inquirer"
 
-import { CommandBase } from "./command-base"
+import { BaseCommand } from "./base-command"
 import { Entities } from "../trpg/entities"
 import { ConsoleUtil } from "../utils/console-util"
 import { SearchUtil } from "../utils/search-util"
 import { Config } from "../config"
 
-export class EntitiesCommand extends CommandBase {
+export class EntitiesCommand extends BaseCommand {
     name = "🎭 View Entities"
 
     execute(): Promise<boolean> {

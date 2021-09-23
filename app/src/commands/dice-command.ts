@@ -2,9 +2,9 @@ import inquirer from 'inquirer'
 import { ConsoleUtil } from '../utils/console-util'
 import { Dice } from '../trpg/dice'
 
-import { CommandBase } from './command-base'
+import { BaseCommand } from './base-command'
 
-export class DiceCommand extends CommandBase {
+export class DiceCommand extends BaseCommand {
   name = '🎲 Roll Dice'
 
   execute(): Promise<boolean> {

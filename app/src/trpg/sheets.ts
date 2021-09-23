@@ -17,26 +17,19 @@ export class Sheets {
         return Sheets.processSheet(sheet)
     }
 
-    private static processSheet(sheet: any): any {
+    static processSheet(sheet: any): any {
         for (const fieldName in sheet) {
             const field = sheet[fieldName]
-            switch (field.type) {
-                case 'dice_roll': {
-                    sheet[fieldName] = Dice.rollDiceFormula(field.value).value
-                    break
-                }
-                case 'table_roll': {
-                    sheet[fieldName] = Tables.rollOnTable(field.value)
-                    break
-                }
-                case 'eval': {
-                    const formula = field.value.replace(/\$/g, 'sheet.')
-                    sheet[fieldName] = eval(formula)
-                    break
-                }
-                case 'section': {
-                    sheet[fieldName] = Sheets.processSheet(field.value)
-                }
+            const fieldType = field.type
+            if (fieldType === 'dice') {
+                sheet[fieldName] = Dice.rollDiceFormula(field.value).value
+            } else if (field === 'table') {
+                sheet[fieldName] = Tables.rollOnTable(field.value)
+            } else if (['eval', 'progress', 'result'].includes(fieldType)) {
+                const formula = field.value.replace(/\$/g, 'sheet.')
+                sheet[fieldName] = eval(formula)
+            } else if (fieldType === 'section') {
+                sheet[fieldName] = Sheets.processSheet(field.value)
             }
         }
         return sheet

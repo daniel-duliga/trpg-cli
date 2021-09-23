@@ -1,7 +1,7 @@
 import inquirer from 'inquirer'
-import { CommandBase } from './command-base'
+import { BaseCommand } from './base-command'
 
-export class LogCommand extends CommandBase {
+export class LogCommand extends BaseCommand {
   name = '✒️ Log'
 
   execute(): Promise<boolean> {

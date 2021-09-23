@@ -1,23 +1,23 @@
 Name:
-  type: table_roll
+  type: table
   value: 'Ironsworn/Character/Name/Ironlander'
 Stats:
   type: section
   value:
     Edge:
-      type: dice_roll
+      type: dice
       value: 1d3
     Heart:
-      type: dice_roll
+      type: dice
       value: 1d3
     Iron:
-      type: dice_roll
+      type: dice
       value: 1d3
     Shadow:
-      type: dice_roll
+      type: dice
       value: 1d3
     Wits:
-      type: dice_roll
+      type: dice
       value: 1d3
 Tracks:
   type: section

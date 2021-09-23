@@ -1,9 +1,9 @@
 import { Config } from "../config";
 import { Entities } from "../trpg/entities";
 import { ConsoleUtil } from "../utils/console-util";
-import { CommandBase } from "./command-base";
+import { BaseCommand } from "./base-command";
 
-export class DefaultEntityCommand extends CommandBase {
+export class CharacterSheetCommand extends BaseCommand {
     name = '🌟 Character Sheet'
 
     execute(): Promise<boolean> {
