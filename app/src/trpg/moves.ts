@@ -10,7 +10,7 @@ export class Moves {
         return FileUtil.getFilesListFromPath(dataBasePaths.moves, fileExtensions.yml)
     }
 
-    static rollMove(movePath: string): any {
+    static async rollMove(movePath: string): Promise<any> {
         const moveFile = fs.readFileSync(`${dataBasePaths.moves}/${movePath}${fileExtensions.yml}`, 'utf-8')
         const move = YAML.parse(moveFile)
         return Sheets.processSheet(move)

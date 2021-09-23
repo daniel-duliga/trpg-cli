@@ -22,8 +22,8 @@ export class SheetsCommand extends BaseCommand {
         ]).then(selection => this.handleSheetSelection(selection.option))
     }
 
-    handleSheetSelection(sheetPath: string): Promise<boolean> {
-        const sheet = Sheets.rollSheet(sheetPath)
+    async handleSheetSelection(sheetPath: string): Promise<boolean> {
+        const sheet = await Sheets.rollSheet(sheetPath)
         ConsoleUtil.logObjectResult(sheet)
         console.log()
         return inquirer.prompt([

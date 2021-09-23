@@ -21,8 +21,8 @@ export class MovesCommand extends BaseCommand {
         ]).then(selection => this.handleSheetSelection(selection.option))
     }
 
-    handleSheetSelection(movePath: string): Promise<boolean> {
-        const move: IMove = Moves.rollMove(movePath)
+    async handleSheetSelection(movePath: string): Promise<boolean> {
+        const move: IMove = await Moves.rollMove(movePath)
         ConsoleUtil.logStringResult(move.Output)
         return super.execute()
     }

@@ -1,7 +1,15 @@
+# User input
+Modifier:
+  type: input
+  value: 'Modifier'
+
 # Roll the dice
-Action:
+ActionDice:
   type: dice
   value: 1d6
+Action:
+  type: eval
+  value: $ActionDice + +$Modifier
 Challenge1:
   type: dice
   value: 1d10
