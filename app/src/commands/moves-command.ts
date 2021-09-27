@@ -6,7 +6,7 @@ import { SearchUtil } from "../utils/search-util";
 import { BaseCommand } from "./base-command";
 
 export class MovesCommand extends BaseCommand {
-    name = "🔪 Moves"
+    name = "🎮 Moves"
 
     execute(): Promise<boolean> {
         const allMoves = Moves.getAllMoves()
