@@ -6,6 +6,9 @@ import { Dice } from './dice'
 import { FileUtil } from "../utils/file-util"
 import { Tables } from './tables'
 import { PromptService } from '../services/prompt-service'
+import { ObjectUtil } from '../utils/object-util'
+import { CharacterSheet } from './character-sheet'
+import { Entities } from './entities'
 
 export class Sheets {
     static getAllSheets(): string[] {
@@ -33,8 +36,18 @@ export class Sheets {
                 sheet[fieldName] = eval(formula)
             } else if (fieldType === 'section') {
                 sheet[fieldName] = await Sheets.processSheet(field.value)
+            } else if (fieldType === 'attribute') {
+                const characterSheet = CharacterSheet.getCharacterSheet()
+                const attributes = ObjectUtil.getObjectAttributes(characterSheet)
+                const attribute = await PromptService.promptAutocomplete('Modifier', attributes)
+                const value = CharacterSheet.getValue(attribute)
+                sheet[fieldName] = value
             }
         }
         return Promise.resolve(sheet)
+    }
+    
+    static saveSheetAsEntity(entityPath: string, sheet: any): void {
+        FileUtil.writeJson(Entities.getEntityFullPath(entityPath), sheet)
     }
 }

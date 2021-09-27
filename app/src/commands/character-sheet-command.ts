@@ -1,5 +1,4 @@
-import { Config } from "../config";
-import { Entities } from "../trpg/entities";
+import { CharacterSheet } from "../trpg/character-sheet";
 import { ConsoleUtil } from "../utils/console-util";
 import { BaseCommand } from "./base-command";
 
@@ -7,11 +6,8 @@ export class CharacterSheetCommand extends BaseCommand {
     name = '🌟 Character Sheet'
 
     execute(): Promise<boolean> {
-        const config = Config.read()
-        if (config.defaultEntity) {
-            const entity = Entities.getEntity(config.defaultEntity)
-            ConsoleUtil.logObjectResult(entity)
-        }
+        const characterSheet = CharacterSheet.getCharacterSheet()
+        ConsoleUtil.logObjectResult(characterSheet)
         return super.execute()
     }
 }

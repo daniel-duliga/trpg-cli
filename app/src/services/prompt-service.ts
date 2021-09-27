@@ -12,11 +12,11 @@ export class PromptService {
         })
     }
 
-    static promptAutocomplete(options: string[]): Promise<string> {
+    static promptAutocomplete(message: string, options: string[]): Promise<string> {
         return inquirer.prompt([{
             type: 'autocomplete',
             name: 'value',
-            message: 'Options:',
+            message: `${message}:`,
             source: (answersSoFar: any, input: string) => SearchUtil.fuzzySearchStrings(options, input)
         }]).then((answer) => { return answer.value })
     }

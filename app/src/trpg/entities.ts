@@ -1,3 +1,4 @@
+import { Config } from "../config";
 import { dataBasePaths, fileExtensions } from "../constants";
 import { FileUtil } from '../utils/file-util'
 
@@ -12,9 +13,5 @@ export class Entities {
 
     static getEntity(entityPath: string): any {
         return FileUtil.readJson(this.getEntityFullPath(entityPath))
-    }
-
-    static saveSheetAsEntity(entityPath: string, sheet: any): void {
-        FileUtil.writeJson(this.getEntityFullPath(entityPath), sheet)
     }
 }

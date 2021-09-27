@@ -27,7 +27,7 @@ export class TablesCommand extends BaseCommand {
     const result = Tables.rollOnTable(selection.option)
     ConsoleUtil.logStringResult(result)
     console.log()
-    return PromptService.promptAutocomplete(['Roll another', 'Back']).then(answer => {
+    return PromptService.promptAutocomplete('Options', ['Roll another', 'Back']).then(answer => {
       switch (answer) {
         case 'Roll another': {
           return this.execute()

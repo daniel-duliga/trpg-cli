@@ -5,6 +5,7 @@ import { Sheets } from '../trpg/sheets'
 import { Entities } from '../trpg/entities'
 import { ConsoleUtil } from '../utils/console-util'
 import { SearchUtil } from '../utils/search-util'
+import { PromptService } from '../services/prompt-service'
 
 export class SheetsCommand extends BaseCommand {
     name = '📜 Roll Sheet'
@@ -25,22 +26,17 @@ export class SheetsCommand extends BaseCommand {
     async handleSheetSelection(sheetPath: string): Promise<boolean> {
         const sheet = await Sheets.rollSheet(sheetPath)
         ConsoleUtil.logObjectResult(sheet)
+        
         console.log()
-        return inquirer.prompt([
-            {
-                type: 'autocomplete',
-                name: 'option',
-                message: 'Options:',
-                source: (answersSoFar: any, input: string) =>
-                    SearchUtil.fuzzySearchStrings(['Save as entity', 'Roll another', 'Back'], input)
-            },
-        ]).then(selection => this.handleSheetOption(sheet, selection.option))
+        
+        const option = await PromptService.promptAutocomplete('Options', ['Save as entity', 'Roll another', 'Back'])
+        return this.handleSheetOption(sheet, option)
     }
 
-    handleSheetOption(sheet: any, option: string): Promise<boolean> {
+    async handleSheetOption(sheet: any, option: string): Promise<boolean> {
         switch (option) {
             case 'Save as entity': {
-                return this.saveAsEntity(sheet)
+                return await this.saveAsEntity(sheet)
             }
             case 'Roll another': {
                 return this.execute()
@@ -51,16 +47,9 @@ export class SheetsCommand extends BaseCommand {
         }
     }
 
-    saveAsEntity(sheet: any): Promise<boolean> {
-        return inquirer.prompt([
-            {
-                type: 'input',
-                name: 'value',
-                message: 'Entity name:',
-            },
-        ]).then((answer) => {
-            Entities.saveSheetAsEntity(answer.value, sheet)
-            return super.execute()
-        })
+    async saveAsEntity(sheet: any): Promise<boolean> {
+        const path = await PromptService.promptInput('Entity name')
+        Sheets.saveSheetAsEntity(path, sheet)
+        return super.execute()
     }
 }

@@ -1,4 +1,8 @@
 # User input
+Attribute:
+  type: attribute
+  value: 'Attribute'
+
 Modifier:
   type: input
   value: 'Modifier'
@@ -7,9 +11,6 @@ Modifier:
 ActionDice:
   type: dice
   value: 1d6
-Action:
-  type: eval
-  value: $ActionDice + +$Modifier
 Challenge1:
   type: dice
   value: 1d10
@@ -18,6 +19,9 @@ Challenge2:
   value: 1d10
 
 # Compute dice roll
+Action:
+  type: eval
+  value: $ActionDice + +$Attribute +$Modifier
 StrongHit:
   type: eval
   value: $Action > $Challenge1 && $Action > $Challenge2
