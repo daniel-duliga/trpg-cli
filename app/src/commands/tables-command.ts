@@ -4,6 +4,7 @@ import { SearchUtil } from '../utils/search-util'
 import { ConsoleUtil } from '../utils/console-util'
 import { BaseCommand } from './base-command'
 import { Tables } from '../trpg/tables'
+import { PromptService } from '../services/prompt-service'
 
 export class TablesCommand extends BaseCommand {
   name = '🎱 Roll Table'
@@ -25,6 +26,16 @@ export class TablesCommand extends BaseCommand {
   handleSelection(selection: any): Promise<boolean> {
     const result = Tables.rollOnTable(selection.option)
     ConsoleUtil.logStringResult(result)
-    return super.execute()
+    console.log()
+    return PromptService.promptAutocomplete(['Roll another', 'Back']).then(answer => {
+      switch (answer) {
+        case 'Roll another': {
+          return this.execute()
+        }
+        default: {
+          return super.execute()
+        }
+      }
+    })
   }
 }
