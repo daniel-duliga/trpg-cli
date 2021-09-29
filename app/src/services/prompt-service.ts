@@ -13,6 +13,7 @@ export class PromptService {
     }
 
     static promptAutocomplete(message: string, options: string[]): Promise<string> {
+        console.log()
         return inquirer.prompt([{
             type: 'autocomplete',
             name: 'value',

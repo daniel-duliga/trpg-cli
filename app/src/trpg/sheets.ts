@@ -37,8 +37,7 @@ export class Sheets {
             } else if (fieldType === 'section') {
                 sheet[fieldName] = await Sheets.processSheet(field.value)
             } else if (fieldType === 'attribute') {
-                const characterSheet = CharacterSheet.getCharacterSheet()
-                const attributes = ObjectUtil.getObjectAttributes(characterSheet)
+                const attributes = CharacterSheet.getAttributes()
                 const attribute = await PromptService.promptAutocomplete('Modifier', attributes)
                 const value = CharacterSheet.getValue(attribute)
                 sheet[fieldName] = value

@@ -14,4 +14,8 @@ export class Entities {
     static getEntity(entityPath: string): any {
         return FileUtil.readJson(this.getEntityFullPath(entityPath))
     }
+
+    static saveEntity(entityPath: string, value: any): void {
+        return FileUtil.writeJson(this.getEntityFullPath(entityPath), value)
+    }
 }
